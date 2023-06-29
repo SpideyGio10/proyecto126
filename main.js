@@ -4,11 +4,13 @@ leftWristY=0;
 rightWristX=0;
 rightWristY=0;
 
-scorerightWrist=0;
 scoreleftWrist=0;
+scorerightWrist=0;
 
 song="";
 song2="";
+song_status="";
+song2_status="";
 
 function setup(){
     canvas=createCanvas(350,350)
@@ -22,10 +24,22 @@ function setup(){
 
 function draw(){
     image(video,0,0,350,350);
-}
+    fill("#FF0000");
+    stroke("#000000");
+    song_status=song.isPlaying();
+    song2_status=song2.isPlaying();
 
+    if(scorerightWrist>0.2){
+        circle(rightWristX,rightWristY,20);
+        song2.stop();
+        if(song_status==false){
+            song.play();
+            document.getElementById("song").innerHTML="reproduciendo:canción de Harry Potter"
+        }
+    }
+}
 function preload(){
-    song=loadSound("music.mp3");
+    song=loadSound("music.mp3"); 
     song2=loadSound("music2.mp3");
 }
 
@@ -37,6 +51,7 @@ function gotPoses(results){
     if(results.length>0){
         console.log(results);
         scoreleftWrist=results[0].pose.keypoints[9].score;
+        console.log("scoreleftWrist="+scoreleftWrist+"scoreleftWrist="+scoreleftWrist);
         scorerightWrist=results[0].pose.keypoints[10].score;
         console.log("scorerightWrist="+scorerightWrist+"scoreleftWrist="+scoreleftWrist);
 
