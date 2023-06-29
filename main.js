@@ -34,7 +34,16 @@ function draw(){
         song2.stop();
         if(song_status==false){
             song.play();
-            document.getElementById("song").innerHTML="reproduciendo:canción de Harry Potter"
+            document.getElementById("song").innerHTML="Reproduciendo:canción de Harry Potter";
+        }
+    }
+
+    if(scoreleftWrist>0.2){
+        circle(leftWristX,leftWristY,20);
+        song.stop();
+        if(song2_status==false){
+            song2.play();
+            document.getElementById("song").innerHTML="Reproduciendo:Canción de Peter Pan";
         }
     }
 }
@@ -51,7 +60,6 @@ function gotPoses(results){
     if(results.length>0){
         console.log(results);
         scoreleftWrist=results[0].pose.keypoints[9].score;
-        console.log("scoreleftWrist="+scoreleftWrist+"scoreleftWrist="+scoreleftWrist);
         scorerightWrist=results[0].pose.keypoints[10].score;
         console.log("scorerightWrist="+scorerightWrist+"scoreleftWrist="+scoreleftWrist);
 
@@ -63,4 +71,10 @@ function gotPoses(results){
         rightWristY=results[0].pose.rightWrist.y;
         console.log("rigthWristX="+rightWristX+"rightWristY="+rightWristY);
     }
+}
+
+function play(){
+    song.play();
+    song.setVolume(1);
+    song.rate(1);
 }
